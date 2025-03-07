@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Women's Day</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/confetti-js"></script>
+  <script src="https://unpkg.com/boxicons@2.1.3/dist/boxicons.js"></script>
+  
+    <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <!-- or -->
+    <link rel="stylesheet"
+    href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+  
+</head>
+<style>
+    /* General Styles */
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #6a11cb, #2575fc); /* Blue-violet gradient */
+  color: #333;
+}
+
+/* Hero Section */
+.hero {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #6a11cb, #2575fc); /* Blue-violet gradient */
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-content {
+  text-align: center;
+  z-index: 1;
+}
+
+.hero h1 {
+  font-size: 4rem;
+  color: white;
+  animation: fadeIn 2s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.countdown {
+  font-size: 2rem;
+  color: white;
+}
+
+/* Confetti Animation */
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Quotes Carousel */
+.quotes {
+  padding: 2rem;
+  text-align: center;
+}
+
+.carousel {
+  position: relative;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.carousel-inner {
+  overflow: hidden;
+}
+
+.carousel-item {
+  display: none;
+  padding: 1rem;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.carousel-item.active {
+  display: block;
+}
+
+.carousel-prev, .carousel-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.carousel-prev { left: -50px; }
+.carousel-next { right: -50px; }
+
+/* Compliment Generator */
+.compliment-generator {
+  padding: 2rem;
+  text-align: center;
+}
+
+#compliment-btn {
+  padding: 10px 20px;
+  background: #2575fc;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#compliment-btn:hover {
+  background: #6a11cb;
+}
+
+#compliment-text {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+}
+
+.hidden { display: none; }
+
+/* Storytelling Section */
+.her-story {
+  padding: 2rem;
+  text-align: center;
+}
+
+.story-cards {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.card {
+  width: 200px;
+  height: 300px;
+  perspective: 1000px;
+}
+
+.card-front, .card-back {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  backface-visibility: hidden;
+  transition: transform 0.6s;
+}
+
+.card-front {
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-back {
+  background: #6a11cb;
+  color: white;
+  transform: rotateY(180deg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.card:hover .card-front {
+  transform: rotateY(180deg);
+}
+
+.card:hover .card-back {
+  transform: rotateY(0deg);
+}
+
+/* Quiz Section */
+.quiz {
+  padding: 2rem;
+  text-align: center;
+}
+
+#quiz-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+#options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#options button {
+  padding: 10px;
+  background: #2575fc;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#options button:hover {
+  background: #6a11cb;
+}
+
+#score {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+}
+
+/* Message Form */
+.message-form {
+  padding: 2rem;
+  text-align: center;
+}
+
+#message-input {
+  width: 100%;
+  height: 100px;
+  padding: 10px;
+  margin-bottom: 1rem;
+}
+
+#message-wall {
+  margin-top: 2rem;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+/* Footer */
+footer {
+  padding: 2rem;
+  text-align: center;
+  background: #333;
+  color: white;
+}
+.social-links a {
+  color: white;
+  margin: 0 10px;
+  text-decoration: none;
+}
+</style>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1 class="fade-in">Happy Women's Day</h1>
+      </div>
+      <canvas id="confetti"></canvas>
+    </section>
+  
+    <!-- Inspirational Quotes Carousel -->
+    <section class="quotes">
+      <h2>Inspirational Quotes</h2>
+      <div class="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <p>"The question isn’t who’s going to let me; it’s who’s going to stop me." - Ayn Rand</p>
+          </div>
+          <div class="carousel-item">
+            <p>"I am not free while any woman is unfree, even when her shackles are very different from my own." - Audre Lorde</p>
+          </div>
+          <div class="carousel-item">
+            <p>"We realize the importance of our voices only when we are silenced." - Malala Yousafzai</p>
+          </div>
+        </div>
+        <button class="carousel-prev">&#10094;</button>
+        <button class="carousel-next">&#10095;</button>
+      </div>
+    </section>
+  
+    <!-- Compliment Generator -->
+    <section class="compliment-generator">
+      <h2>Gift a Compliment</h2>
+      <button id="compliment-btn">Get a Compliment</button>
+      <p id="compliment-text"></p>
+      <button id="copy-btn" class="hidden">Copy Compliment</button>
+    </section>
+  
+    <!-- Storytelling Section -->
+    <section class="her-story">
+      <h2>HerStory</h2>
+      <div class="story-cards">
+        <div class="card">
+          <div class="card-front">
+            <img src="MarieCurie.jfif" height="300" width="auto" alt="Marie Curie">
+          </div>
+          <div class="card-back">
+            <p>Marie Curie was the first woman to win a Nobel Prize and the only person to win in two different sciences.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-front">
+            <img src="kalpana.jpg" height="300" width="auto"  alt="Kalpana Chawla">
+          </div>
+          <div class="card-back">
+            <p>Kalpana Chawla was the first woman of Indian origin to go to space.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-front">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Mother_Teresa_1.jpg/220px-Mother_Teresa_1.jpg" alt="Mother Teresa">
+          </div>
+          <div class="card-back">
+            <p>Mother Teresa dedicated her life to serving the poor and destitute.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  
+    <!-- Quiz Section -->
+    <section class="quiz">
+      <h2>Women's History Quiz</h2>
+      <div id="quiz-container">
+        <div id="question"></div>
+        <div id="options"></div>
+        <button id="next-btn">Next</button>
+        <p id="score"></p>
+      </div>
+    </section>
+  
+    <!-- Message Form -->
+    <section class="message-form">
+      <h2>Share Your Message</h2>
+      <form id="message-form">
+        <textarea id="message-input" placeholder="Write your message..." required></textarea>
+        <button type="submit">Submit</button>
+      </form>
+      <div id="message-wall"></div>
+    </section>
+  
+    <!-- Footer -->
+    <footer>
+      <p>Celebrate and Empower Women Every Day</p>
+      <div class="social-links">
+        <a href="https://www.facebook.com/share/161FySEjiA/"><i class='bx bxl-facebook-circle'></i></a>
+        <a href="https://www.linkedin.com/in/kamatchi-subramanian303/"><i class='bx bxl-linkedin-square'></i></a>
+        <a href="https://www.instagram.com/kamatchisubramanian04?igsh=a3llcWN2NjVpeGh3"><i class='bx bxl-instagram' ></i></a>
+      </div>
+    </footer>
+    <script>
+      // Confetti Animation
+  const confettiSettings = { target: 'confetti', max: 150 };
+  const confetti = new ConfettiGenerator(confettiSettings);
+  confetti.render();
+  
+  // Countdown Timer
+  const countdown = () => {
+    const womenDay = new Date('March 8, 2024 00:00:00').getTime();
+    const now = new Date().getTime();
+    const diff = womenDay - now;
+  
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+  
+    document.getElementById('countdown').innerHTML = `
+      ${days}d ${hours}h ${minutes}m ${seconds}s
+    `;
+  };
+  
+  setInterval(countdown, 1000);
+  
+  // Quotes Carousel
+  let currentQuote = 0;
+  const quotes = document.querySelectorAll('.carousel-item');
+  const totalQuotes = quotes.length;
+  
+  const showQuote = (index) => {
+    quotes.forEach((quote, i) => {
+      quote.classList.toggle('active', i === index);
+    });
+  };
+  
+  document.querySelector('.carousel-next').addEventListener('click', () => {
+    currentQuote = (currentQuote + 1) % totalQuotes;
+    showQuote(currentQuote);
+  });
+  
+  document.querySelector('.carousel-prev').addEventListener('click', () => {
+    currentQuote = (currentQuote - 1 + totalQuotes) % totalQuotes;
+    showQuote(currentQuote);
+  });
+  
+  setInterval(() => {
+    currentQuote = (currentQuote + 1) % totalQuotes;
+    showQuote(currentQuote);
+  }, 5000);
+  
+  // Compliment Generator
+  const compliments = [
+    "You are a strong and inspiring woman!",
+    "Your intelligence and kindness shine brightly.",
+    "You make the world a better place.",
+    "You are capable of achieving anything you set your mind to.",
+  ];
+  
+  document.getElementById('compliment-btn').addEventListener('click', () => {
+    const randomCompliment = compliments[Math.floor(Math.random() * compliments.length)];
+    document.getElementById('compliment-text').textContent = randomCompliment;
+    document.getElementById('copy-btn').classList.remove('hidden');
+  });
+  
+  document.getElementById('copy-btn').addEventListener('click', () => {
+    const complimentText = document.getElementById('compliment-text').textContent;
+    navigator.clipboard.writeText(complimentText).then(() => {
+      alert('Compliment copied to clipboard!');
+    });
+  });
+  
+  // Quiz Section
+  const quizData = [
+    {
+      question: "Who was the first woman to win a Nobel Prize?",
+      options: ["Marie Curie", "Rosa Parks", "Amelia Earhart"],
+      answer: "Marie Curie",
+    },
+    {
+      question: "Who was the first woman to go to space?",
+      options: ["Valentina Tereshkova", "Sally Ride", "Kalpana Chawla"],
+      answer: "Valentina Tereshkova",
+    },
+    {
+      question: "Who is known as the 'Mother of the Civil Rights Movement'?",
+      options: ["Rosa Parks", "Harriet Tubman", "Sojourner Truth"],
+      answer: "Rosa Parks",
+    },
+    {
+      question: "Who was the first female Prime Minister of India?",
+      options: ["Indira Gandhi", "Margaret Thatcher", "Benazir Bhutto"],
+      answer: "Indira Gandhi",
+    },
+  ];
+  
+  let currentQuestion = 0;
+  let score = 0;
+  
+  const loadQuestion = () => {
+    const { question, options } = quizData[currentQuestion];
+    document.getElementById('question').textContent = question;
+    document.getElementById('options').innerHTML = options
+      .map((option) => `<button onclick="checkAnswer('${option}')">${option}</button>`)
+      .join('');
+  };
+  
+  const checkAnswer = (selected) => {
+    const correctAnswer = quizData[currentQuestion].answer;
+    if (selected === correctAnswer) {
+      score++;
+    }
+    currentQuestion++;
+    if (currentQuestion < quizData.length) {
+      loadQuestion();
+    } else {
+      document.getElementById('quiz-container').innerHTML = `
+        <h3>Your Score: ${score}/${quizData.length}</h3>
+      `;
+    }
+  };
+  
+  document.getElementById('next-btn').addEventListener('click', loadQuestion);
+  
+  // Message Form
+  document.getElementById('message-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const message = document.getElementById('message-input').value;
+    const messageWall = document.getElementById('message-wall');
+    messageWall.innerHTML += `<p>${message}</p>`;
+    document.getElementById('message-input').value = '';
+  });
+    </script>
+  </body>
+  </html>
